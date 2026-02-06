@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Ladooo ❤️</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe6e6; 
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+        }
+        
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative; /* CRITICAL: This keeps the button inside */
+            width: 300px;      /* Fixed width helps define the boundary */
+            height: 400px;     /* Fixed height ensures space to run around */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #d32f2f;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 180px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        img.enlarged {
+            width: 320px; /* Larger size after Yes is clicked */
+        }
+
+        .buttons {
+            margin-top: 20px;
+            width: 100%;
+            /* This area allows the buttons to sit nicely */
+            display: flex;
+            justify-content: center;
+            gap: 20px; 
+        }
+
+        button {
+            font-size: 1.2rem;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            z-index: 10; /* Ensures buttons stay on top */
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 77, 109, 0.4);
+        }
+        
+        #yesBtn:hover {
+            transform: scale(1.1);
+        }
+
+        #noBtn {
+            background-color: #cbb5cb;
+            color: #333;
+            position: relative; /* Starts in normal position */
+        }
+    </style>
+</head>
+<body>
+
+   <div class="container" id="container">
+        <img id="gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDdtZ2JiZDR0a3lvMWF4OG8yc3p6Ymdvd3g2d245amdveDhyYmx6eCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/c76IJLufpNwSULPk77/giphy.gif" alt="Cute Bear">
+        
+        <h1 id="question">Will you be my Valentine?</h1>
+        
+        <p id="dareText" style="color: #666; font-style: italic; margin-top: -10px;">Dare you touch no!</p>
+        
+        <div class="buttons">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const question = document.getElementById('question');
+        const gif = document.getElementById('gif');
+        const container = document.getElementById('container');
+
+// Logic for the YES button
+        yesBtn.addEventListener('click', () => {
+	question.innerHTML = "Adhu! I love you!<br>En Ladde❤️";
+            gif.src = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExd213OHdqem5wamUzOTY2NmpqdTRhZTUyejc3a2p6MHB5NnEwNmJxYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PtdOBG0BD9Vvi/giphy.gif";
+            gif.classList.add('enlarged'); // Make the GIF larger
+            
+            // Hide the buttons and the dare text
+            yesBtn.style.display = "none";
+            noBtn.style.display = "none";
+            document.getElementById('dareText').style.display = "none";
+        });
+
+        // Logic to make the NO button run away WITHIN the container
+        function moveButton() {
+            // Get the dimensions of the container and the button
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+
+            // Calculate the max positions allowed
+            const maxWidth = containerRect.width - btnRect.width;
+            const maxHeight = containerRect.height - btnRect.height;
+
+            // Generate random positions within those limits
+            const randomX = Math.floor(Math.random() * maxWidth);
+            const randomY = Math.floor(Math.random() * maxHeight);
+
+            // Apply the new position
+            noBtn.style.position = "absolute"; 
+            noBtn.style.left = randomX + "px";
+            noBtn.style.top = randomY + "px";
+        }
+
+        // Trigger on Mouse Over (Desktop) or Touch (Mobile)
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); 
+            moveButton();
+        });
+    </script>
+</body>
+</html>
